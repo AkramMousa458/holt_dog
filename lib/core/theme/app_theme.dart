@@ -58,7 +58,7 @@ class AppTheme {
       ),
 
       // Card Theme
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.backgroundWhite,
         elevation: 1, // Subtle shadow for modern look
         shape: RoundedRectangleBorder(

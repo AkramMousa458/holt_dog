@@ -8,8 +8,8 @@ import '../widgets/custom_nav_bar.dart';
 import '../models/report_model.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_typography.dart';
-import 'scan_screen.dart';
-import 'map_screen.dart';
+import '../../scan/screens/scan_screen.dart';
+import '../../map/screens/map_screen.dart';
 import 'vets_screen.dart';
 import 'shelters_screen.dart';
 
