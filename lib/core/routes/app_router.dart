@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holt_dog/features/donation/screens/donation_screen.dart';
+import 'package:holt_dog/features/donation/screens/add_card_screen.dart';
 import 'package:holt_dog/features/reports/screens/my_report_screen.dart';
 import '../../features/onboarding/screens/splash_screen.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
@@ -81,6 +82,11 @@ class AppRouter {
         path: MyReportScreen.routeName,
         name: 'myReportScreen',
         builder: (context, state) => const MyReportScreen(),
+      ),
+      GoRoute(
+        path: AddCardScreen.routeName,
+        name: 'addCardScreen',
+        builder: (context, state) => const AddCardScreen(),
       ),
     ],
   );

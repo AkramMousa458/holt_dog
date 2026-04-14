@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holt_dog/features/donation/screens/add_card_screen.dart';
 
 class DonationOption {
   final String amount;
@@ -58,7 +59,9 @@ class DonationScreen extends StatelessWidget {
                       icon: Icons.credit_card,
                       label: "Visa / MasterCard",
                       iconColor: Colors.green,
-                      onTap: () {},
+                      onTap: () {
+                        context.push(AddCardScreen.routeName);
+                      },
                     ),
                     const SizedBox(height: 12),
                     PaymentMethodButton(

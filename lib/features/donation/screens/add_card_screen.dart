@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AddCardScreen extends StatelessWidget {
+  static const String routeName = '/addCardScreen';
   const AddCardScreen({super.key});
 
   @override
@@ -19,19 +21,26 @@ class AddCardScreen extends StatelessWidget {
                     height: 280,
                     width: double.infinity,
                     color: const Color(0xFF4A148C), // Deep Purple
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
-                    child: const Column(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 50),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(Icons.arrow_back, color: Colors.white, size: 30),
-                            Icon(Icons.pets, color: Colors.white, size: 28), // Dog icon placeholder
+                            IconButton(
+                              onPressed: () => context.pop(),
+                              icon: const Icon(Icons.arrow_back,
+                                  color: Colors.white, size: 30),
+                            ),
+                            const Icon(Icons.pets,
+                                color: Colors.white,
+                                size: 28), // Dog icon placeholder
                           ],
                         ),
-                        Spacer(),
-                        Text(
+                        const Spacer(),
+                        const Text(
                           "Add Card",
                           style: TextStyle(
                             color: Colors.white,
@@ -39,14 +48,21 @@ class AddCardScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 60),
+                        const SizedBox(height: 60),
                       ],
                     ),
                   ),
                 ),
                 // Decorative Paw Prints
-                const Positioned(top: 100, right: 60, child: Icon(Icons.pets, color: Colors.white24, size: 40)),
-                const Positioned(top: 180, right: 110, child: Icon(Icons.favorite, color: Colors.white24, size: 35)),
+                const Positioned(
+                    top: 100,
+                    right: 60,
+                    child: Icon(Icons.pets, color: Colors.white24, size: 40)),
+                const Positioned(
+                    top: 180,
+                    right: 110,
+                    child:
+                        Icon(Icons.favorite, color: Colors.white24, size: 35)),
               ],
             ),
 
@@ -54,7 +70,8 @@ class AddCardScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 500), // Keeps form centered on web
+                constraints: const BoxConstraints(
+                    maxWidth: 500), // Keeps form centered on web
                 child: Column(
                   children: [
                     _buildInputField("Card Number", "    /    /    /    "),
@@ -63,7 +80,7 @@ class AddCardScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     _buildInputField("Expiration Day", "mm / yy"),
                     const SizedBox(height: 50),
-                    
+
                     // Responsive Confirm Button
                     SizedBox(
                       width: double.infinity,
@@ -131,17 +148,17 @@ class HeaderCurveClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     Path path = Path();
     path.lineTo(0, size.height - 80);
-    
+
     var firstControlPoint = Offset(size.width / 2, size.height);
     var firstEndPoint = Offset(size.width, size.height - 80);
-    
+
     path.quadraticBezierTo(
       firstControlPoint.dx,
       firstControlPoint.dy,
       firstEndPoint.dx,
       firstEndPoint.dy,
     );
-    
+
     path.lineTo(size.width, 0);
     path.close();
     return path;
