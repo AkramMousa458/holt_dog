@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:holt_dog/core/routes/app_router.dart';
+import 'package:holt_dog/features/donation/screens/donation_screen.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_typography.dart';
 import '../../../core/constants/app_styles.dart';
@@ -324,29 +327,34 @@ class QuoteBanner extends StatelessWidget {
             ),
           ),
           SizedBox(height: 24.h),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 12.h),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [AppColors.primaryMagenta, Color(0xFFFF4081)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(100.r),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.primaryMagenta.withOpacity(0.3),
-                  blurRadius: 15,
-                  offset: const Offset(0, 8),
+          InkWell(
+            onTap: () {
+              context.push(DonationScreen.routeName);
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 12.h),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [AppColors.primaryMagenta, Color(0xFFFF4081)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                 ),
-              ],
-            ),
-            child: Text(
-              'Donate Now',
-              style: AppTypography.buttonLabel.copyWith(
-                color: Colors.white,
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w900,
+                borderRadius: BorderRadius.circular(100.r),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.primaryMagenta.withOpacity(0.3),
+                    blurRadius: 15,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
+              ),
+              child: Text(
+                'Donate Now',
+                style: AppTypography.buttonLabel.copyWith(
+                  color: Colors.white,
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w900,
+                ),
               ),
             ),
           ),
