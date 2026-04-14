@@ -1,12 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:holt_dog/features/charity/screens/charity_home_screen.dart';
-import 'package:holt_dog/features/doctor/screens/doctor_home_screen.dart';
+import 'package:holt_dog/features/charity_side/screens/charity_home_screen.dart';
+import 'package:holt_dog/features/doctor_side/screens/doctor_home_screen.dart';
 import 'package:holt_dog/features/donation/screens/donation_screen.dart';
 import 'package:holt_dog/features/donation/screens/add_card_screen.dart';
 import 'package:holt_dog/features/donation/screens/e_wallet_screen.dart';
-import 'package:holt_dog/features/retailer/screens/retailer_home_screen.dart';
-import 'package:holt_dog/features/user/reports/screens/my_report_screen.dart';
+import 'package:holt_dog/features/retailer_side/screens/retailer_home_screen.dart';
+import 'package:holt_dog/features/user_side/reports/screens/my_report_screen.dart';
 import '../../features/onboarding/screens/splash_screen.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
 import '../../features/auth/screens/login_screen.dart';
@@ -14,8 +13,8 @@ import '../../features/auth/screens/signup_screen.dart';
 import '../../features/auth/screens/forgot_password_screen.dart';
 import '../../features/auth/screens/verify_otp_screen.dart';
 import '../../features/auth/screens/reset_password_screen.dart';
-import '../../features/user/profile/screens/privacy_policy_screen.dart';
-import '../../features/user/user_home/screens/user_home_screen.dart';
+import '../../features/user_side/profile/screens/privacy_policy_screen.dart';
+import '../../features/user_side/user_home/screens/user_home_screen.dart';
 
 class AppRouter {
   // Route Names

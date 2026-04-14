@@ -56,7 +56,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   title: 'Spot a dog in need?',
                   subtitle: 'Take a photo and help save a life.',
-                  description: 'Our App Makes It Easy To Report Stray Dogs That Need Help, Just Point Your Camera And Capture The Moment.',
+                  description:
+                      'Our App Makes It Easy To Report Stray Dogs That Need Help, Just Point Your Camera And Capture The Moment.',
                   isSecondaryPage: false,
                 ),
                 _OnboardingPage(
@@ -64,7 +65,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     children: [
                       Container(
                         padding: EdgeInsets.all(24.w),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: AppColors.backgroundWhite,
                           shape: BoxShape.circle,
                         ),
@@ -78,18 +79,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          _buildSmallWhiteBox('assets/images/onboarding2.paw.png'),
+                          _buildSmallWhiteBox(
+                              'assets/images/onboarding2.paw.png'),
                           SizedBox(width: 15.w),
-                          _buildSmallWhiteBox('assets/images/heart_onboarding2..png'),
+                          _buildSmallWhiteBox(
+                              'assets/images/heart_onboarding2..png'),
                           SizedBox(width: 15.w),
-                          _buildSmallWhiteBox('assets/images/dog_bone_onboarding2..png'),
+                          _buildSmallWhiteBox(
+                              'assets/images/dog_bone_onboarding2..png'),
                         ],
                       ),
                     ],
                   ),
                   title: 'AI-Powered Analysis',
                   subtitle: 'Breed Detection And Health Analysis',
-                  description: 'Instantly identify breeds and get immediate health insights to provide the best care for rescued animals.',
+                  description:
+                      'Instantly identify breeds and get immediate health insights to provide the best care for rescued animals.',
                   isSecondaryPage: true,
                 ),
               ],
@@ -112,7 +117,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           'Skip',
           style: AppTypography.bodyMedium.copyWith(
             fontWeight: FontWeight.bold,
-            color: _currentPage == 0 ? AppColors.textPrimary : AppColors.textOnPurple,
+            color: _currentPage == 0
+                ? AppColors.textPrimary
+                : AppColors.textOnPurple,
           ),
         ),
       ),
@@ -159,9 +166,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           width: _currentPage == index ? 24.w : 10.w,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            color: _currentPage == index 
-                ? (_currentPage == 1 ? AppColors.primaryMagenta : AppColors.primaryMagenta) 
-                : (_currentPage == 1 ? AppColors.backgroundWhite.withOpacity(0.4) : AppColors.borderLight),
+            color: _currentPage == index
+                ? (_currentPage == 1
+                    ? AppColors.primaryMagenta
+                    : AppColors.primaryMagenta)
+                : (_currentPage == 1
+                    ? AppColors.backgroundWhite.withValues(alpha: 0.4)
+                    : AppColors.borderLight),
           ),
         ),
       ),
@@ -174,18 +185,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         Expanded(
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: _currentPage == 1 
-                  ? AppColors.primaryMagenta 
+              backgroundColor: _currentPage == 1
+                  ? AppColors.primaryMagenta
                   : AppColors.borderLight,
-              foregroundColor: _currentPage == 1 
-                  ? AppColors.textOnPurple 
+              foregroundColor: _currentPage == 1
+                  ? AppColors.textOnPurple
                   : AppColors.textPrimary,
               elevation: 0,
               padding: EdgeInsets.symmetric(horizontal: 12.w),
               minimumSize: Size(0, 56.h),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.r)),
             ),
-            onPressed: _currentPage > 0 
+            onPressed: _currentPage > 0
                 ? () {
                     _pageController.previousPage(
                         duration: const Duration(milliseconds: 300),
@@ -210,19 +222,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         Expanded(
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: _currentPage == 1 
-                  ? AppColors.backgroundWhite 
+              backgroundColor: _currentPage == 1
+                  ? AppColors.backgroundWhite
                   : AppColors.primaryMagenta,
-              foregroundColor: _currentPage == 1 
-                  ? AppColors.primaryPurple 
+              foregroundColor: _currentPage == 1
+                  ? AppColors.primaryPurple
                   : AppColors.textOnPurple,
               padding: EdgeInsets.symmetric(horizontal: 12.w),
               minimumSize: Size(0, 56.h),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.r)),
             ),
             onPressed: () {
               if (_currentPage < 1) {
-                _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+                _pageController.nextPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut);
               } else {
                 context.go(AppRouter.login);
               }
@@ -263,8 +278,10 @@ class _OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = isSecondaryPage ? AppColors.primaryPurple : AppColors.backgroundGray;
-    final contentColor = isSecondaryPage ? AppColors.textOnPurple : AppColors.textPrimary;
+    final bgColor =
+        isSecondaryPage ? AppColors.primaryPurple : AppColors.backgroundGray;
+    final contentColor =
+        isSecondaryPage ? AppColors.textOnPurple : AppColors.textPrimary;
 
     return Container(
       color: bgColor,
@@ -279,7 +296,7 @@ class _OnboardingPage extends StatelessWidget {
             title,
             textAlign: TextAlign.center,
             style: AppTypography.h2.copyWith(
-              color: contentColor, 
+              color: contentColor,
               fontSize: 26.sp,
               fontWeight: FontWeight.bold,
             ),
@@ -289,7 +306,9 @@ class _OnboardingPage extends StatelessWidget {
             subtitle,
             textAlign: TextAlign.center,
             style: AppTypography.subHeadline.copyWith(
-              color: isSecondaryPage ? AppColors.backgroundWhite : AppColors.primaryMagenta,
+              color: isSecondaryPage
+                  ? AppColors.backgroundWhite
+                  : AppColors.primaryMagenta,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -298,7 +317,9 @@ class _OnboardingPage extends StatelessWidget {
             description,
             textAlign: TextAlign.center,
             style: AppTypography.bodyMedium.copyWith(
-              color: isSecondaryPage ? AppColors.backgroundWhite.withOpacity(0.8) : AppColors.textSecondary,
+              color: isSecondaryPage
+                  ? AppColors.backgroundWhite.withValues(alpha: 0.8)
+                  : AppColors.textSecondary,
               height: 1.5,
             ),
           ),

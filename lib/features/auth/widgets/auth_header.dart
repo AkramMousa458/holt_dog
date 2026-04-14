@@ -30,7 +30,7 @@ class AuthHeader extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primaryMagenta.withOpacity(0.3),
+            color: AppColors.primaryMagenta.withValues(alpha: 0.3),
             blurRadius: 15,
             offset: const Offset(0, 5),
           ),
@@ -65,7 +65,8 @@ class AuthHeader extends StatelessWidget {
                 SizedBox(height: 20.h),
                 Text(
                   title,
-                  style: AppTypography.h2.copyWith(color: AppColors.textOnPurple),
+                  style:
+                      AppTypography.h2.copyWith(color: AppColors.textOnPurple),
                 ),
                 SizedBox(height: 5.h),
                 Text(

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:holt_dog/features/charity/screens/charity_home_screen.dart';
-import 'package:holt_dog/features/doctor/screens/doctor_home_screen.dart';
-import 'package:holt_dog/features/retailer/screens/retailer_home_screen.dart';
-import 'package:holt_dog/features/user/user_home/screens/user_home_screen.dart';
+import 'package:holt_dog/features/retailer_side/screens/retailer_home_screen.dart';
+import 'package:holt_dog/features/user_side/user_home/screens/user_home_screen.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_styles.dart';
 import '../../../core/constants/app_typography.dart';
@@ -178,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       //   child: Text(
                       //     'Skip to Home (Test Only)',
                       //     style: AppTypography.caption.copyWith(
-                      //       color: AppColors.primaryMagenta.withOpacity(0.5),
+                      //       color: AppColors.primaryMagenta.withValues(alpha:0.5),
                       //       decoration: TextDecoration.underline,
                       //     ),
                       //   ),

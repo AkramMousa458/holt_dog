@@ -44,7 +44,7 @@ class _EWalletScreenState extends State<EWalletScreen> {
                         ),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButtonFormField<String>(
-                            value: _selectedMethod,
+                            initialValue: _selectedMethod,
                             hint: const Text("Select Payment Method",
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             isExpanded: true,
@@ -103,7 +103,7 @@ class _EWalletScreenState extends State<EWalletScreen> {
                             decoration: InputDecoration(
                               hintText: _selectedMethod == null
                                   ? 'select a provider first'
-                                  : 'enter your ${_selectedMethod} number',
+                                  : 'enter your ${_selectedMethod ?? ''} number',
                               hintStyle:
                                   const TextStyle(fontStyle: FontStyle.italic),
                               border: InputBorder.none,
@@ -151,7 +151,7 @@ class _EWalletScreenState extends State<EWalletScreen> {
                   icon:
                       const Icon(Icons.arrow_back_ios_new, color: Colors.white),
                   style: IconButton.styleFrom(
-                    backgroundColor: Colors.white.withOpacity(0.2),
+                    backgroundColor: Colors.white.withValues(alpha: 0.2),
                   ),
                 ),
                 const SizedBox(height: 8),
