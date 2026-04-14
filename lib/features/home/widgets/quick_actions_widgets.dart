@@ -28,7 +28,7 @@ class QuickActionHeader extends StatelessWidget {
   final bool showBackButton;
 
   const QuickActionHeader({
-    super.key, 
+    super.key,
     this.userName = '',
     this.title,
     this.subtitle,
@@ -44,9 +44,9 @@ class QuickActionHeader extends StatelessWidget {
           clipper: SlantedHeaderClipper(),
           child: Container(
             width: double.infinity,
-            height: showSearch ? 260.h : 200.h,
+            height: showSearch ? 235.h : 145.h,
             color: AppColors.primaryPurple,
-            padding: EdgeInsets.only(top: 60.h, left: 30.w, right: 30.w),
+            padding: EdgeInsets.only(top: 45.h, left: 30.w, right: 30.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -61,25 +61,26 @@ class QuickActionHeader extends StatelessWidget {
                             color: Colors.white.withOpacity(0.2),
                             shape: BoxShape.circle,
                           ),
-                          child: Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18.w),
+                          child: Icon(Icons.arrow_back_ios_new,
+                              color: Colors.white, size: 18.w),
                         ),
                       ),
                       SizedBox(width: 15.w),
                     ],
-                    Expanded(
-                      child: Text(
-                        title ?? (userName.isEmpty ? 'welcome !' : 'welcome , $userName !'),
-                        style: GoogleFonts.inter(
-                          fontSize: title != null ? 24.sp : 28.sp,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white,
-                        ),
-                        overflow: TextOverflow.ellipsis,
+                    Text(
+                      title ??
+                          (userName.isEmpty
+                              ? 'welcome !'
+                              : 'welcome , $userName !'),
+                      style: GoogleFonts.inter(
+                        fontSize: title != null ? 24.sp : 28.sp,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
                       ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
-                SizedBox(height: 8.h),
                 Padding(
                   padding: EdgeInsets.only(left: showBackButton ? 45.w : 0),
                   child: Text(
@@ -119,7 +120,8 @@ class QuickActionHeader extends StatelessWidget {
                     color: Colors.white,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.menu, color: AppColors.primaryPurple, size: 24.w),
+                  child: Icon(Icons.menu,
+                      color: AppColors.primaryPurple, size: 24.w),
                 ),
                 SizedBox(width: 16.w),
                 Expanded(
@@ -140,8 +142,10 @@ class QuickActionHeader extends StatelessWidget {
                       textAlignVertical: TextAlignVertical.center,
                       decoration: InputDecoration(
                         hintText: 'search',
-                        hintStyle: AppTypography.caption.copyWith(color: AppColors.textHint),
-                        suffixIcon: Icon(Icons.search, color: AppColors.textHint, size: 20.w),
+                        hintStyle: AppTypography.caption
+                            .copyWith(color: AppColors.textHint),
+                        suffixIcon: Icon(Icons.search,
+                            color: AppColors.textHint, size: 20.w),
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.symmetric(horizontal: 20.w),
                       ),
@@ -161,12 +165,11 @@ class QuickActionCard extends StatelessWidget {
   final IconData icon;
   final VoidCallback onTap;
 
-  const QuickActionCard({
-    super.key, 
-    required this.title, 
-    required this.icon, 
-    required this.onTap
-  });
+  const QuickActionCard(
+      {super.key,
+      required this.title,
+      required this.icon,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {

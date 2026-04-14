@@ -6,7 +6,6 @@ import '../widgets/quick_actions_widgets.dart';
 import '../widgets/home_widgets.dart';
 import '../widgets/custom_nav_bar.dart';
 import '../models/report_model.dart';
-import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_typography.dart';
 import '../../scan/screens/scan_screen.dart';
 import '../../map/screens/map_screen.dart';
