@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:holt_dog/features/doctor/doctor_home/screens/results_screen.dart';
 import 'package:holt_dog/features/donation/screens/donation_screen.dart';
 import 'package:holt_dog/features/user/user_home/screens/custom_drawer.dart';
-import 'package:holt_dog/features/user/reports/screens/my_report_screen.dart'
-    hide Report;
 import '../widgets/quick_actions_widgets.dart';
 import '../widgets/home_widgets.dart';
 import '../widgets/custom_nav_bar.dart';
 import '../models/report_model.dart';
-import '../../../../core/constants/app_typography.dart';
-import 'vets_screen.dart';
-import 'shelters_screen.dart';
 
 class DoctorHomeScreen extends StatefulWidget {
   static const String routeName = '/doctorHome';
