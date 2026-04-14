@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-class UnifiedWalletScreen extends StatefulWidget {
-  const UnifiedWalletScreen({super.key});
+class EWalletScreen extends StatefulWidget {
+  static const String routeName = '/eWalletScreen';
+  const EWalletScreen({super.key});
 
   @override
-  State<UnifiedWalletScreen> createState() => _UnifiedWalletScreenState();
+  State<EWalletScreen> createState() => _EWalletScreenState();
 }
 
-class _UnifiedWalletScreenState extends State<UnifiedWalletScreen> {
+class _EWalletScreenState extends State<EWalletScreen> {
   // Track the selected payment method
   String? _selectedMethod;
 
@@ -27,14 +28,13 @@ class _UnifiedWalletScreenState extends State<UnifiedWalletScreen> {
           child: Column(
             children: [
               _buildHeader(),
-              
               Expanded(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(24.0),
                   child: Column(
                     children: [
                       const SizedBox(height: 20),
-                      
+
                       // --- UNIFIED DROPDOWN MENU ---
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -45,10 +45,11 @@ class _UnifiedWalletScreenState extends State<UnifiedWalletScreen> {
                         child: DropdownButtonHideUnderline(
                           child: DropdownButtonFormField<String>(
                             value: _selectedMethod,
-                            hint: const Text("Select Payment Method", 
+                            hint: const Text("Select Payment Method",
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             isExpanded: true,
-                            decoration: const InputDecoration(border: InputBorder.none),
+                            decoration:
+                                const InputDecoration(border: InputBorder.none),
                             items: _paymentMethods.map((method) {
                               return DropdownMenuItem<String>(
                                 value: method['name'],
@@ -64,8 +65,8 @@ class _UnifiedWalletScreenState extends State<UnifiedWalletScreen> {
                                       child: Center(
                                         child: Text(method['icon'],
                                             style: const TextStyle(
-                                                color: Colors.white, 
-                                                fontSize: 12, 
+                                                color: Colors.white,
+                                                fontSize: 12,
                                                 fontFamily: 'sans-serif')),
                                       ),
                                     ),
@@ -75,7 +76,8 @@ class _UnifiedWalletScreenState extends State<UnifiedWalletScreen> {
                                 ),
                               );
                             }).toList(),
-                            onChanged: (val) => setState(() => _selectedMethod = val),
+                            onChanged: (val) =>
+                                setState(() => _selectedMethod = val),
                           ),
                         ),
                       ),
@@ -91,19 +93,22 @@ class _UnifiedWalletScreenState extends State<UnifiedWalletScreen> {
                           height: 45,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
-                            border: Border.all(color: Colors.black87, width: 1.5),
+                            border:
+                                Border.all(color: Colors.black87, width: 1.5),
                           ),
                           child: TextField(
                             enabled: _selectedMethod != null,
                             textAlign: TextAlign.center,
                             keyboardType: TextInputType.phone,
                             decoration: InputDecoration(
-                              hintText: _selectedMethod == null 
-                                  ? 'select a provider first' 
+                              hintText: _selectedMethod == null
+                                  ? 'select a provider first'
                                   : 'enter your ${_selectedMethod} number',
-                              hintStyle: const TextStyle(fontStyle: FontStyle.italic),
+                              hintStyle:
+                                  const TextStyle(fontStyle: FontStyle.italic),
                               border: InputBorder.none,
-                              contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                              contentPadding:
+                                  const EdgeInsets.symmetric(vertical: 10),
                             ),
                           ),
                         ),
@@ -112,7 +117,6 @@ class _UnifiedWalletScreenState extends State<UnifiedWalletScreen> {
                   ),
                 ),
               ),
-              
               _buildFooter(),
             ],
           ),
@@ -126,16 +130,41 @@ class _UnifiedWalletScreenState extends State<UnifiedWalletScreen> {
     return ClipPath(
       clipper: HeaderClipper(),
       child: Container(
-        height: 200,
+        height: 230,
         width: double.infinity,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(colors: [Color(0xFFEBC1FF), Color(0xFFC471ED)]),
+          gradient:
+              LinearGradient(colors: [Color(0xFFEBC1FF), Color(0xFFC471ED)]),
         ),
-        child: const SafeArea(
+        child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Text('Smart Wallet', 
-                style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold)),
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    if (Navigator.of(context).canPop()) {
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  icon:
+                      const Icon(Icons.arrow_back_ios_new, color: Colors.white),
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.white.withOpacity(0.2),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Smart Wallet',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -146,15 +175,18 @@ class _UnifiedWalletScreenState extends State<UnifiedWalletScreen> {
     return Container(
       height: 70,
       decoration: const BoxDecoration(
-        gradient: LinearGradient(colors: [Color(0xFF8A2BE2), Color(0xFFB565D6)]),
+        gradient:
+            LinearGradient(colors: [Color(0xFF8A2BE2), Color(0xFFB565D6)]),
         borderRadius: BorderRadius.only(
-          topLeft: Radius.elliptical(200, 40), 
-          topRight: Radius.elliptical(200, 40)
-        ),
+            topLeft: Radius.elliptical(200, 40),
+            topRight: Radius.elliptical(200, 40)),
       ),
       child: const Center(
-        child: Text('Continue', 
-            style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+        child: Text('Continue',
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold)),
       ),
     );
   }
@@ -165,11 +197,13 @@ class HeaderClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     var path = Path();
     path.lineTo(0, size.height);
-    path.quadraticBezierTo(size.width * 0.5, size.height - 50, size.width, size.height - 100);
+    path.quadraticBezierTo(
+        size.width * 0.5, size.height - 50, size.width, size.height - 100);
     path.lineTo(size.width, 0);
     path.close();
     return path;
   }
+
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

@@ -1,29 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
-
-// ==========================================
-// MAIN SCREEN (HOME)
-// ==========================================
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Screen'),
-        backgroundColor: const Color(0xFF45207A),
-        iconTheme: const IconThemeData(color: Colors.white),
-        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
-      ),
-      drawer: const CustomSlideMenu(),
-      body: const Center(
-        child: Text('Welcome! Open the menu to explore.'),
-      ),
-    );
-  }
-}
+import 'package:go_router/go_router.dart';
+import 'package:holt_dog/features/home/screens/home_screen.dart';
 
 // ==========================================
 // SLIDE MENU COMPONENT
@@ -365,11 +343,7 @@ class FeedbackSuccessPage extends StatelessWidget {
                     height: 55,
                     child: OutlinedButton(
                       onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => const MainScreen()),
-                          (route) => false,
-                        );
+                        context.push(HomeScreen.routeName);
                       },
                       style: OutlinedButton.styleFrom(
                         backgroundColor: lightGreen,
@@ -916,11 +890,7 @@ class ThankYouPage extends StatelessWidget {
                     height: 56,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => const MainScreen()),
-                          (route) => false,
-                        );
+                        context.push(HomeScreen.routeName);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,

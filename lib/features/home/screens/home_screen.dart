@@ -15,6 +15,7 @@ import 'vets_screen.dart';
 import 'shelters_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const String routeName = '/home';
   const HomeScreen({super.key});
 
   @override

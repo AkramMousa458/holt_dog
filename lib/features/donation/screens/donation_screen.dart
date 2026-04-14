@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holt_dog/features/donation/screens/add_card_screen.dart';
+import 'package:holt_dog/features/donation/screens/e_wallet_screen.dart';
 
 class DonationOption {
   final String amount;
@@ -68,7 +69,9 @@ class DonationScreen extends StatelessWidget {
                       icon: Icons.account_balance_wallet,
                       label: "Smart Wallet",
                       iconColor: Colors.red,
-                      onTap: () {},
+                      onTap: () {
+                        context.push(EWalletScreen.routeName);
+                      },
                     ),
                     const SizedBox(height: 30),
                     _buildSecurityBanner(),
