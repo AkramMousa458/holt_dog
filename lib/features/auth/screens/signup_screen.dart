@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holt_dog/features/user/user_home/screens/user_home_screen.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_styles.dart';
 import '../../../core/constants/app_typography.dart';
@@ -47,7 +48,7 @@ class _SignupScreenState extends State<SignupScreen> {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is Authenticated) {
-          context.go(AppRouter.home);
+          context.go(UserHomeScreen.routeName);
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),

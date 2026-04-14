@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import '../../features/home/models/vet_model.dart';
-import '../../features/home/models/shelter_model.dart';
-import '../../features/home/models/report_model.dart';
+import '../../features/user/user_home/models/vet_model.dart';
+import '../../features/user/user_home/models/shelter_model.dart';
+import '../../features/user/user_home/models/report_model.dart';
 
 class FirestoreService {
   // FirebaseFirestore get _db => FirebaseFirestore.instance;

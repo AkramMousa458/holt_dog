@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holt_dog/features/doctor/doctor_home/screens/doctor_home_screen.dart';
 import 'package:holt_dog/features/donation/screens/donation_screen.dart';
 import 'package:holt_dog/features/donation/screens/add_card_screen.dart';
 import 'package:holt_dog/features/donation/screens/e_wallet_screen.dart';
-import 'package:holt_dog/features/reports/screens/my_report_screen.dart';
+import 'package:holt_dog/features/user/reports/screens/my_report_screen.dart';
 import '../../features/onboarding/screens/splash_screen.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
 import '../../features/auth/screens/login_screen.dart';
@@ -11,8 +12,8 @@ import '../../features/auth/screens/signup_screen.dart';
 import '../../features/auth/screens/forgot_password_screen.dart';
 import '../../features/auth/screens/verify_otp_screen.dart';
 import '../../features/auth/screens/reset_password_screen.dart';
-import '../../features/profile/screens/privacy_policy_screen.dart';
-import '../../features/home/screens/home_screen.dart';
+import '../../features/user/profile/screens/privacy_policy_screen.dart';
+import '../../features/user/user_home/screens/user_home_screen.dart';
 
 class AppRouter {
   // Route Names
@@ -24,7 +25,6 @@ class AppRouter {
   static const String verifyOtp = '/verify-otp';
   static const String resetPassword = '/reset-password';
   static const String privacyPolicy = '/privacy-policy';
-  static const String home = '/';
 
   static final GoRouter router = GoRouter(
     initialLocation: splash,
@@ -70,9 +70,9 @@ class AppRouter {
         builder: (context, state) => const PrivacyPolicyScreen(),
       ),
       GoRoute(
-        path: home,
-        name: 'home',
-        builder: (context, state) => const HomeScreen(),
+        path: UserHomeScreen.routeName,
+        name: 'userHome',
+        builder: (context, state) => const UserHomeScreen(),
       ),
       GoRoute(
         path: DonationScreen.routeName,
@@ -93,6 +93,11 @@ class AppRouter {
         path: EWalletScreen.routeName,
         name: 'eWalletScreen',
         builder: (context, state) => const EWalletScreen(),
+      ),
+      GoRoute(
+        path: DoctorHomeScreen.routeName,
+        name: 'doctorHome',
+        builder: (context, state) => const DoctorHomeScreen(),
       ),
     ],
   );

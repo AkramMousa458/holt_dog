@@ -7,7 +7,7 @@ import 'core/routes/app_router.dart';
 import 'core/services/auth_service.dart';
 import 'core/services/firestore_service.dart';
 import 'features/auth/cubit/auth_cubit.dart';
-import 'features/home/cubit/home_cubit.dart';
+import 'features/user/user_home/cubit/home_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
