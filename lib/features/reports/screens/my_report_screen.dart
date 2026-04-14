@@ -18,8 +18,9 @@ class Report {
 }
 
 // Main screen widget
-class ReportsScreen extends StatelessWidget {
-  const ReportsScreen({super.key});
+class MyReportScreen extends StatelessWidget {
+  static const String routeName = '/myReportScreen';
+  const MyReportScreen({super.key});
 
   // Sample reports data
   List<Report> get reports => [
@@ -68,7 +69,7 @@ class ReportsScreen extends StatelessWidget {
               itemCount: reports.length,
               itemBuilder: (context, index) {
                 final report = reports[index];
-                return ReportCard(report: report);
+                return ReportItemCard(report: report);
               },
             ),
           ),
@@ -132,10 +133,10 @@ class ReportsScreen extends StatelessWidget {
 }
 
 // Reusable widget for each report card
-class ReportCard extends StatelessWidget {
+class ReportItemCard extends StatelessWidget {
   final Report report;
 
-  const ReportCard({super.key, required this.report});
+  const ReportItemCard({super.key, required this.report});
 
   @override
   Widget build(BuildContext context) {

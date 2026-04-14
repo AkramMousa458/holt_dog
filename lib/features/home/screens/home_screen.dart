@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:holt_dog/features/home/cubit/home_cubit.dart';
+import 'package:holt_dog/features/reports/screens/my_report_screen.dart' hide Report;
 import '../widgets/quick_actions_widgets.dart';
 import '../widgets/home_widgets.dart';
 import '../widgets/custom_nav_bar.dart';
@@ -120,7 +122,9 @@ class _HomeBody extends StatelessWidget {
                 QuickActionCard(
                   title: 'My Reports',
                   icon: Icons.assignment_outlined,
-                  onTap: () {},
+                  onTap: () {
+                    context.push(MyReportScreen.routeName);
+                  },
                 ),
                 SizedBox(height: 32.h),
 
