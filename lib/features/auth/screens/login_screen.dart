@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:holt_dog/features/doctor/doctor_home/screens/doctor_home_screen.dart';
+import 'package:holt_dog/features/charity/screens/charity_home_screen.dart';
+import 'package:holt_dog/features/doctor/screens/doctor_home_screen.dart';
+import 'package:holt_dog/features/retailer/screens/retailer_home_screen.dart';
 import 'package:holt_dog/features/user/user_home/screens/user_home_screen.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_styles.dart';
@@ -34,7 +36,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _handleLogin() {
-    context.go(DoctorHomeScreen.routeName);
+    context.go(RetailerHomeScreen.routeName);
+    // context.go(CharityHomeScreen.routeName);
+    // context.go(DoctorHomeScreen.routeName);
     // context.go(UserHomeScreen.routeName);
     // return;
     if (_formKey.currentState!.validate()) {

@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_typography.dart';
-import '../../user_home/widgets/quick_actions_widgets.dart';
+import '../../user_home/widgets/user_quick_actions_widgets.dart';
 
 class ScanScreen extends StatefulWidget {
   const ScanScreen({super.key});
@@ -18,7 +18,8 @@ class ScanScreen extends StatefulWidget {
 }
 
 class _ScanScreenState extends State<ScanScreen> {
-  static const String _predictUrl = 'https://yh-777-dog-ai-api.hf.space/predict';
+  static const String _predictUrl =
+      'https://yh-777-dog-ai-api.hf.space/predict';
   static final Dio _dio = Dio(
     BaseOptions(
       baseUrl: _predictUrl,
@@ -64,14 +65,12 @@ class _ScanScreenState extends State<ScanScreen> {
       _isLoading = false;
       if (response.isSuccess && response.data?['success'] == true) {
         final Map<String, dynamic> data = response.data!;
-        _result =
-            'المرض المتوقع: ${data['predicted_disease']}\n'
+        _result = 'المرض المتوقع: ${data['predicted_disease']}\n'
             'المزاج: ${data['predicted_mood']}\n'
             'الدقة: ${data['disease_confidence']}%';
       } else {
         log('API error: ${response.errorMessage}');
-        _result =
-            response.errorMessage ??
+        _result = response.errorMessage ??
             response.data?['message']?.toString() ??
             'حدث خطأ غير متوقع';
       }
@@ -124,7 +123,7 @@ class _ScanScreenState extends State<ScanScreen> {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          const QuickActionHeader(userName: '', showSearch: false),
+          const UserQuickActionHeader(userName: '', showSearch: false),
           Expanded(
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
@@ -206,8 +205,8 @@ class _ScanScreenState extends State<ScanScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryPurple,
                         foregroundColor: Colors.white,
-                        disabledBackgroundColor: AppColors.primaryPurple
-                            .withOpacity(0.45),
+                        disabledBackgroundColor:
+                            AppColors.primaryPurple.withOpacity(0.45),
                       ),
                     ),
                   ),

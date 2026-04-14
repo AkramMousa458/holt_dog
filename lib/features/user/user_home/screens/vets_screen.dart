@@ -6,7 +6,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_typography.dart';
 import '../models/vet_model.dart';
 import '../cubit/vets_cubit.dart';
-import '../widgets/quick_actions_widgets.dart';
+import '../widgets/user_quick_actions_widgets.dart';
 
 class VetsScreen extends StatelessWidget {
   const VetsScreen({super.key});
@@ -49,8 +49,8 @@ class VetsScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          const QuickActionHeader(
-            userName: '', 
+          const UserQuickActionHeader(
+            userName: '',
             showSearch: false,
             showBackButton: true,
             title: 'Nearby Veterinarians',
@@ -74,7 +74,6 @@ class VetsScreen extends StatelessWidget {
     );
   }
 }
-
 
 class _LocationInfoCard extends StatelessWidget {
   const _LocationInfoCard();
@@ -110,7 +109,8 @@ class _LocationInfoCard extends StatelessWidget {
                 SizedBox(height: 4.h),
                 Text(
                   'Your location has been accurately shared and at our presence',
-                  style: AppTypography.caption.copyWith(color: AppColors.textSecondary),
+                  style: AppTypography.caption
+                      .copyWith(color: AppColors.textSecondary),
                 ),
               ],
             ),
@@ -163,7 +163,8 @@ class _VetCard extends StatelessWidget {
                 SizedBox(height: 4.h),
                 Row(
                   children: [
-                    Icon(Icons.check_circle_outline, color: statusColor, size: 14.w),
+                    Icon(Icons.check_circle_outline,
+                        color: statusColor, size: 14.w),
                     SizedBox(width: 4.w),
                     Text(
                       isAvailable ? 'available' : 'Closed',
@@ -177,7 +178,8 @@ class _VetCard extends StatelessWidget {
                 SizedBox(height: 8.h),
                 Text(
                   vet.phone,
-                  style: AppTypography.bodySmall.copyWith(fontWeight: FontWeight.bold),
+                  style: AppTypography.bodySmall
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
               ],
             ),

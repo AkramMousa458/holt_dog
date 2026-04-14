@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holt_dog/core/routes/app_router.dart';
-import 'package:holt_dog/features/doctor/doctor_home/screens/doctor_home_screen.dart';
+import 'package:holt_dog/features/doctor/screens/doctor_home_screen.dart';
 
 // ==========================================
 // SLIDE MENU COMPONENT

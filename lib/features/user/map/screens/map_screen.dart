@@ -8,7 +8,7 @@ import 'package:latlong2/latlong.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_typography.dart';
-import '../../user_home/widgets/quick_actions_widgets.dart';
+import '../../user_home/widgets/user_quick_actions_widgets.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -77,7 +77,7 @@ class _MapScreenState extends State<MapScreen> {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          const QuickActionHeader(userName: '', showSearch: false),
+          const UserQuickActionHeader(userName: '', showSearch: false),
           Expanded(
             child: Stack(
               children: [

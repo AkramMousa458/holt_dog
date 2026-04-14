@@ -26,11 +26,11 @@ class NavCurveClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
 
-class CustomBottomNavBar extends StatelessWidget {
+class UserNavBar extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTap;
 
-  const CustomBottomNavBar({
+  const UserNavBar({
     super.key,
     required this.currentIndex,
     required this.onTap,

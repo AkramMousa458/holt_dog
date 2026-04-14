@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:holt_dog/features/doctor/doctor_home/screens/doctor_home_screen.dart';
+import 'package:holt_dog/features/charity/screens/charity_home_screen.dart';
+import 'package:holt_dog/features/doctor/screens/doctor_home_screen.dart';
 import 'package:holt_dog/features/donation/screens/donation_screen.dart';
 import 'package:holt_dog/features/donation/screens/add_card_screen.dart';
 import 'package:holt_dog/features/donation/screens/e_wallet_screen.dart';
+import 'package:holt_dog/features/retailer/screens/retailer_home_screen.dart';
 import 'package:holt_dog/features/user/reports/screens/my_report_screen.dart';
 import '../../features/onboarding/screens/splash_screen.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
@@ -98,6 +100,16 @@ class AppRouter {
         path: DoctorHomeScreen.routeName,
         name: 'doctorHome',
         builder: (context, state) => const DoctorHomeScreen(),
+      ),
+      GoRoute(
+        path: CharityHomeScreen.routeName,
+        name: 'charityHome',
+        builder: (context, state) => const CharityHomeScreen(),
+      ),
+      GoRoute(
+        path: RetailerHomeScreen.routeName,
+        name: 'retailerHome',
+        builder: (context, state) => const RetailerHomeScreen(),
       ),
     ],
   );

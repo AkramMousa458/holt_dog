@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:holt_dog/features/doctor/doctor_home/screens/results_screen.dart';
 import 'package:holt_dog/features/donation/screens/donation_screen.dart';
 import 'package:holt_dog/features/user/user_home/screens/custom_drawer.dart';
-import '../widgets/quick_actions_widgets.dart';
+import '../widgets/Retailer_quick_actions_widgets.dart';
 import '../widgets/home_widgets.dart';
-import '../widgets/custom_nav_bar.dart';
+import '../widgets/retailer_nav_bar.dart';
 import '../models/report_model.dart';
 
-class DoctorHomeScreen extends StatefulWidget {
-  static const String routeName = '/doctorHome';
-  const DoctorHomeScreen({super.key});
+class RetailerHomeScreen extends StatefulWidget {
+  static const String routeName = '/retailerHome';
+  const RetailerHomeScreen({super.key});
 
   @override
-  State<DoctorHomeScreen> createState() => _HomeScreenState();
+  State<RetailerHomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<DoctorHomeScreen> {
+class _HomeScreenState extends State<RetailerHomeScreen> {
   int _currentIndex = 1; // Default to Home (Center tab)
 
   final List<Widget> _screens = [
     // const ScanScreen(),
     const DonationScreen(), // Extracted main content
     const _HomeBody(), // Extracted main content
-    const ResultsScreen(), // Extracted main content
     // const MapScreen(),
   ];
 
@@ -37,7 +35,7 @@ class _HomeScreenState extends State<DoctorHomeScreen> {
         index: _currentIndex,
         children: _screens,
       ),
-      bottomNavigationBar: CustomBottomNavBar(
+      bottomNavigationBar: RetailerNavBar(
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),
       ),
@@ -82,7 +80,7 @@ class _HomeBody extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const QuickActionHeader(userName: '', showSearch: true),
+          const RatailerQuickActionHeader(userName: '', showSearch: true),
           ...mockReports.map((report) => Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.w),
                 child: ReportCard(report: report),

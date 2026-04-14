@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_typography.dart';
+import '../../../core/constants/app_colors.dart';
+import '../../../core/constants/app_typography.dart';
 
 class NavCurveClipper extends CustomClipper<Path> {
   @override
@@ -26,11 +26,11 @@ class NavCurveClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
 
-class CustomBottomNavBar extends StatelessWidget {
+class DoctorNavBar extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTap;
 
-  const CustomBottomNavBar({
+  const DoctorNavBar({
     super.key,
     required this.currentIndex,
     required this.onTap,

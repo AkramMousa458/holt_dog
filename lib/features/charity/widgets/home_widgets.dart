@@ -5,9 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:holt_dog/core/routes/app_router.dart';
 import 'package:holt_dog/features/donation/screens/donation_screen.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_typography.dart';
-import '../../../../core/constants/app_styles.dart';
+import '../../../core/constants/app_colors.dart';
+import '../../../core/constants/app_typography.dart';
+import '../../../core/constants/app_styles.dart';
 import '../models/report_model.dart';
 
 class HomeHeader extends StatelessWidget {

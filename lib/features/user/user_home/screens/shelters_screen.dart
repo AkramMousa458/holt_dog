@@ -6,7 +6,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_typography.dart';
 import '../models/shelter_model.dart';
 import '../cubit/shelters_cubit.dart';
-import '../widgets/quick_actions_widgets.dart';
+import '../widgets/user_quick_actions_widgets.dart';
 
 class SheltersScreen extends StatelessWidget {
   const SheltersScreen({super.key});
@@ -18,7 +18,8 @@ class SheltersScreen extends StatelessWidget {
       Shelter(
         id: '1',
         name: 'Mira Gamal Shelter',
-        address: 'B6 رئيس مجلس المعادي، قسم مصر الجديدة، محافظة القاهرة 4460231',
+        address:
+            'B6 رئيس مجلس المعادي، قسم مصر الجديدة، محافظة القاهرة 4460231',
         phone: '01147572385',
         status: ShelterStatus.available,
         rating: 4.5,
@@ -45,8 +46,8 @@ class SheltersScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          const QuickActionHeader(
-            userName: '', 
+          const UserQuickActionHeader(
+            userName: '',
             showSearch: false,
             showBackButton: true,
             title: 'Nearby Shelters',
@@ -59,8 +60,9 @@ class SheltersScreen extends StatelessWidget {
                 children: [
                   const _LocationInfoCard(),
                   SizedBox(height: 20.h),
-                  ...mockShelters.map((shelter) => _ShelterCard(shelter: shelter)),
-                  SizedBox(height: 100.h), 
+                  ...mockShelters
+                      .map((shelter) => _ShelterCard(shelter: shelter)),
+                  SizedBox(height: 100.h),
                 ],
               ),
             ),
@@ -70,7 +72,6 @@ class SheltersScreen extends StatelessWidget {
     );
   }
 }
-
 
 class _LocationInfoCard extends StatelessWidget {
   const _LocationInfoCard();
@@ -102,7 +103,8 @@ class _LocationInfoCard extends StatelessWidget {
               children: [
                 Text(
                   'current location Detected',
-                  style: AppTypography.caption.copyWith(color: AppColors.textSecondary),
+                  style: AppTypography.caption
+                      .copyWith(color: AppColors.textSecondary),
                 ),
                 Text(
                   'cairo , Egypt',
@@ -183,7 +185,8 @@ class _ShelterCard extends StatelessWidget {
                 SizedBox(height: 6.h),
                 Row(
                   children: [
-                    Icon(Icons.check_circle_outline, color: statusColor, size: 16.w),
+                    Icon(Icons.check_circle_outline,
+                        color: statusColor, size: 16.w),
                     SizedBox(width: 6.w),
                     Text(
                       isAvailable ? 'Available' : 'Closed',
@@ -203,7 +206,9 @@ class _ShelterCard extends StatelessWidget {
                     Row(
                       children: List.generate(5, (index) {
                         return Icon(
-                          index < shelter.rating.floor() ? Icons.star : Icons.star_border,
+                          index < shelter.rating.floor()
+                              ? Icons.star
+                              : Icons.star_border,
                           color: Colors.grey,
                           size: 18.w,
                         );

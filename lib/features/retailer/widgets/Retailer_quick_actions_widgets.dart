@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_typography.dart';
+import '../../../core/constants/app_colors.dart';
+import '../../../core/constants/app_typography.dart';
 
 class SlantedHeaderClipper extends CustomClipper<Path> {
   @override
@@ -19,14 +19,14 @@ class SlantedHeaderClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
 
-class QuickActionHeader extends StatelessWidget {
+class RatailerQuickActionHeader extends StatelessWidget {
   final String userName;
   final String? title;
   final String? subtitle;
   final bool showSearch;
   final bool showBackButton;
 
-  const QuickActionHeader({
+  const RatailerQuickActionHeader({
     super.key,
     this.userName = '',
     this.title,
@@ -69,7 +69,7 @@ class QuickActionHeader extends StatelessWidget {
                     Text(
                       title ??
                           (userName.isEmpty
-                              ? 'welcome !'
+                              ? 'welcome Retailer!'
                               : 'welcome , $userName !'),
                       style: GoogleFonts.inter(
                         fontSize: title != null ? 24.sp : 28.sp,

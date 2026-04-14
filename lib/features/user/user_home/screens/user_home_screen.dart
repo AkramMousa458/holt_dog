@@ -6,9 +6,9 @@ import 'package:holt_dog/features/user/user_home/cubit/home_cubit.dart';
 import 'package:holt_dog/features/user/user_home/screens/custom_drawer.dart';
 import 'package:holt_dog/features/user/reports/screens/my_report_screen.dart'
     hide Report;
-import '../widgets/quick_actions_widgets.dart';
+import '../widgets/user_quick_actions_widgets.dart';
 import '../widgets/home_widgets.dart';
-import '../widgets/custom_nav_bar.dart';
+import '../widgets/user_nav_bar.dart';
 import '../models/report_model.dart';
 import '../../../../core/constants/app_typography.dart';
 import '../../scan/screens/scan_screen.dart';
@@ -43,7 +43,7 @@ class _HomeScreenState extends State<UserHomeScreen> {
         index: _currentIndex,
         children: _screens,
       ),
-      bottomNavigationBar: CustomBottomNavBar(
+      bottomNavigationBar: UserNavBar(
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),
       ),
@@ -88,7 +88,7 @@ class _HomeBody extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const QuickActionHeader(userName: '', showSearch: true),
+          const UserQuickActionHeader(userName: '', showSearch: true),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 30.w),
             child: Column(
