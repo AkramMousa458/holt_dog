@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holt_dog/features/charity_side/screens/charity_home_screen.dart';
+import 'package:holt_dog/features/doctor_side/screens/doctor_home_screen.dart';
 import 'package:holt_dog/features/retailer_side/screens/retailer_home_screen.dart';
 import 'package:holt_dog/features/user_side/user_home/screens/user_home_screen.dart';
 import '../../../core/constants/app_colors.dart';
@@ -25,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  String _selectedUserType = 'User';
 
   @override
   void dispose() {
@@ -34,16 +37,30 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _handleLogin() {
-    context.go(RetailerHomeScreen.routeName);
-    // context.go(CharityHomeScreen.routeName);
-    // context.go(DoctorHomeScreen.routeName);
-    // context.go(UserHomeScreen.routeName);
-    // return;
-    if (_formKey.currentState!.validate()) {
-      context.read<AuthCubit>().login(
-            _emailController.text.trim(),
-            _passwordController.text.trim(),
-          );
+    _navigateBySelectedUserType();
+    // if (_formKey.currentState!.validate()) {
+    //   context.read<AuthCubit>().login(
+    //         _emailController.text.trim(),
+    //         _passwordController.text.trim(),
+    //       );
+    // }
+  }
+
+  void _navigateBySelectedUserType() {
+    switch (_selectedUserType) {
+      case 'Retailer':
+        context.go(RetailerHomeScreen.routeName);
+        break;
+      case 'Charity':
+        context.go(CharityHomeScreen.routeName);
+        break;
+      case 'Doctor':
+        context.go(DoctorHomeScreen.routeName);
+        break;
+      case 'User':
+      default:
+        context.go(UserHomeScreen.routeName);
+        break;
     }
   }
 
@@ -52,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is Authenticated) {
-          context.go(UserHomeScreen.routeName);
+          _navigateBySelectedUserType();
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
@@ -113,6 +130,48 @@ class _LoginScreenState extends State<LoginScreen> {
                             return 'Password must be at least 6 characters';
                           }
                           return null;
+                        },
+                      ),
+                      SizedBox(height: 30.h),
+                      DropdownButtonFormField<String>(
+                        initialValue: _selectedUserType,
+                        decoration: InputDecoration(
+                          labelText: 'Login as',
+                          labelStyle: AppTypography.bodyMedium.copyWith(
+                            color: AppColors.textPrimary,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                            borderSide: const BorderSide(
+                              color: AppColors.borderLight,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                            borderSide: const BorderSide(
+                              color: AppColors.primaryMagenta,
+                            ),
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16.w,
+                            vertical: 14.h,
+                          ),
+                        ),
+                        items: const [
+                          DropdownMenuItem(value: 'User', child: Text('User')),
+                          DropdownMenuItem(
+                              value: 'Doctor', child: Text('Doctor')),
+                          DropdownMenuItem(
+                              value: 'Charity', child: Text('Charity')),
+                          DropdownMenuItem(
+                              value: 'Retailer', child: Text('Retailer')),
+                        ],
+                        onChanged: (value) {
+                          if (value == null) return;
+                          setState(() => _selectedUserType = value);
                         },
                       ),
                       Align(
