@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:holt_dog/features/charity_side/screens/marketplace_screen.dart';
 import 'package:holt_dog/features/doctor_side/screens/results_screen.dart';
 import 'package:holt_dog/features/donation/screens/donation_screen.dart';
 import 'package:holt_dog/features/user_side/user_home/screens/custom_drawer.dart';
@@ -18,14 +19,16 @@ class CharityHomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<CharityHomeScreen> {
   int _currentIndex = 1; // Default to Home (Center tab)
+  int _marketCartCount = 0;
 
-  final List<Widget> _screens = [
-    // const ScanScreen(),
-    const DonationScreen(), // Extracted main content
-    const _HomeBody(), // Extracted main content
-    const ResultsScreen(), // Extracted main content
-    const ResultsScreen(), // Extracted main content
-    // const MapScreen(),
+  late final List<Widget> _screens = [
+    const DonationScreen(),
+    const _HomeBody(),
+    const ResultsScreen(),
+    MarketplaceScreen(
+      onCartItemCountChanged: (count) =>
+          setState(() => _marketCartCount = count),
+    ),
   ];
 
   @override
@@ -41,6 +44,7 @@ class _HomeScreenState extends State<CharityHomeScreen> {
       bottomNavigationBar: CharityNavBar(
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),
+        marketCartBadgeCount: _marketCartCount,
       ),
     );
   }

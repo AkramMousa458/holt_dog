@@ -29,11 +29,14 @@ class NavCurveClipper extends CustomClipper<Path> {
 class CharityNavBar extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTap;
+  /// Total items in marketplace cart; shown on the Market tab when > 0.
+  final int marketCartBadgeCount;
 
   const CharityNavBar({
     super.key,
     required this.currentIndex,
     required this.onTap,
+    this.marketCartBadgeCount = 0,
   });
 
   @override
@@ -67,7 +70,13 @@ class CharityNavBar extends StatelessWidget {
                 _buildNavItem(0, Icons.payments, 'Donate', 15.h),
                 _buildNavItem(1, Icons.home, 'Home', 30.h),
                 _buildNavItem(2, Icons.analytics, 'Results', 30.h),
-                _buildNavItem(3, Icons.shopping_bag, 'Market', 15.h),
+                _buildNavItem(
+                  3,
+                  Icons.shopping_bag,
+                  'Market',
+                  15.h,
+                  badgeCount: marketCartBadgeCount,
+                ),
               ],
             ),
           ),
@@ -77,8 +86,17 @@ class CharityNavBar extends StatelessWidget {
   }
 
   Widget _buildNavItem(
-      int index, IconData icon, String label, double bottomMargin) {
+    int index,
+    IconData icon,
+    String label,
+    double bottomMargin, {
+    int badgeCount = 0,
+  }) {
     bool isSelected = currentIndex == index;
+    final iconColor = isSelected
+        ? AppColors.primaryPurple
+        : AppColors.primaryPurple.withValues(alpha: 0.7);
+    final iconSize = isSelected ? 32.w : 28.w;
 
     return GestureDetector(
       onTap: () => onTap(index),
@@ -112,13 +130,39 @@ class CharityNavBar extends StatelessWidget {
                       ]
                     : [],
               ),
-              child: Icon(
-                icon,
-                color: isSelected
-                    ? AppColors.primaryPurple
-                    : AppColors.primaryPurple.withValues(alpha: 0.7),
-                size: isSelected ? 32.w : 28.w,
-              ),
+              child: badgeCount > 0
+                  ? Stack(
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.center,
+                      children: [
+                        Icon(icon, color: iconColor, size: iconSize),
+                        Positioned(
+                          right: -4.w,
+                          top: -4.h,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: badgeCount > 9 ? 4.w : 5.w,
+                              vertical: 2.h,
+                            ),
+                            decoration: const BoxDecoration(
+                              color: Color(0xFF9E9E9E),
+                              shape: BoxShape.circle,
+                            ),
+                            constraints: BoxConstraints(minWidth: 18.w),
+                            alignment: Alignment.center,
+                            child: Text(
+                              badgeCount > 99 ? '99+' : '$badgeCount',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : Icon(icon, color: iconColor, size: iconSize),
             ),
             SizedBox(height: 4.h),
             // Label with subtle bold change
