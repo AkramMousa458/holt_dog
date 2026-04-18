@@ -64,8 +64,8 @@ class RetailerNavBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                _buildNavItem(0, Icons.payments, 'Donate', 30.h),
-                _buildNavItem(1, Icons.home, 'Home', 30.h),
+                _buildNavItem(0, Icons.shopping_cart_outlined, 'Market', 30.h),
+                _buildNavItem(1, Icons.receipt_long_outlined, 'Orders', 30.h),
               ],
             ),
           ),
