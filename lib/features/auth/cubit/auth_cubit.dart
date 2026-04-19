@@ -19,9 +19,13 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   // Signup
-  Future<void> signup(String email, String password) async {
+  Future<void> signup(
+    String email,
+    String password, {
+    String role = 'user',
+  }) async {
     emit(AuthLoading());
-    final result = await _authService.signUp(email, password);
+    final result = await _authService.signUp(email, password, role: role);
     if (result != null) {
       emit(Authenticated(result.user!.uid));
     } else {

@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holt_dog/features/charity_side/screens/charity_home_screen.dart';
 import 'package:holt_dog/features/doctor_side/screens/doctor_home_screen.dart';
+import 'package:holt_dog/features/insurance_side/screens/insurance_home_screen.dart';
 import 'package:holt_dog/features/retailer_side/screens/retailer_home_screen.dart';
 import 'package:holt_dog/features/user_side/user_home/screens/user_home_screen.dart';
 import '../../../core/constants/app_colors.dart';
@@ -47,7 +50,11 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _navigateBySelectedUserType() {
+    log('selectedUserType: $_selectedUserType');
     switch (_selectedUserType) {
+      case 'Insurance Agent':
+        context.go(InsuranceHomeScreen.routeName);
+        break;
       case 'Retailer':
         context.go(RetailerHomeScreen.routeName);
         break;
@@ -168,6 +175,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               value: 'Charity', child: Text('Charity')),
                           DropdownMenuItem(
                               value: 'Retailer', child: Text('Retailer')),
+                          DropdownMenuItem(
+                              value: 'Insurance Agent',
+                              child: Text('Insurance Agent')),
                         ],
                         onChanged: (value) {
                           if (value == null) return;

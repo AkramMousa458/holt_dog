@@ -4,6 +4,7 @@ import 'package:holt_dog/features/doctor_side/screens/doctor_home_screen.dart';
 import 'package:holt_dog/features/donation/screens/donation_screen.dart';
 import 'package:holt_dog/features/donation/screens/add_card_screen.dart';
 import 'package:holt_dog/features/donation/screens/e_wallet_screen.dart';
+import 'package:holt_dog/features/insurance_side/screens/insurance_home_screen.dart';
 import 'package:holt_dog/features/retailer_side/screens/retailer_home_screen.dart';
 import 'package:holt_dog/features/user_side/reports/screens/my_report_screen.dart';
 import '../../features/onboarding/screens/splash_screen.dart';
@@ -109,6 +110,11 @@ class AppRouter {
         path: RetailerHomeScreen.routeName,
         name: 'retailerHome',
         builder: (context, state) => const RetailerHomeScreen(),
+      ),
+      GoRoute(
+        path: InsuranceHomeScreen.routeName,
+        name: 'insuranceHome',
+        builder: (context, state) => const InsuranceHomeScreen(),
       ),
     ],
   );

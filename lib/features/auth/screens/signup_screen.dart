@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holt_dog/features/charity_side/screens/charity_home_screen.dart';
+import 'package:holt_dog/features/doctor_side/screens/doctor_home_screen.dart';
+import 'package:holt_dog/features/retailer_side/screens/retailer_home_screen.dart';
 import 'package:holt_dog/features/user_side/user_home/screens/user_home_screen.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_styles.dart';
@@ -25,6 +28,42 @@ class _SignupScreenState extends State<SignupScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  String _selectedUserType = 'User';
+
+  static String _roleToApi(String display) {
+    switch (display) {
+      case 'Doctor':
+        return 'doctor';
+      case 'Charity':
+        return 'charity';
+      case 'Retailer':
+        return 'retailer';
+      case 'Insurance Agent':
+        return 'insurance_agent';
+      case 'User':
+      default:
+        return 'user';
+    }
+  }
+
+  void _navigateBySelectedUserType() {
+    switch (_selectedUserType) {
+      case 'Insurance Agent':
+      case 'Retailer':
+        context.go(RetailerHomeScreen.routeName);
+        break;
+      case 'Charity':
+        context.go(CharityHomeScreen.routeName);
+        break;
+      case 'Doctor':
+        context.go(DoctorHomeScreen.routeName);
+        break;
+      case 'User':
+      default:
+        context.go(UserHomeScreen.routeName);
+        break;
+    }
+  }
 
   @override
   void dispose() {
@@ -39,6 +78,7 @@ class _SignupScreenState extends State<SignupScreen> {
       context.read<AuthCubit>().signup(
             _emailController.text.trim(),
             _passwordController.text.trim(),
+            role: _roleToApi(_selectedUserType),
           );
     }
   }
@@ -48,7 +88,7 @@ class _SignupScreenState extends State<SignupScreen> {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is Authenticated) {
-          context.go(UserHomeScreen.routeName);
+          _navigateBySelectedUserType();
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
@@ -126,6 +166,52 @@ class _SignupScreenState extends State<SignupScreen> {
                             return 'Password must be at least 6 characters';
                           }
                           return null;
+                        },
+                      ),
+                      SizedBox(height: 30.h),
+                      DropdownButtonFormField<String>(
+                        initialValue: _selectedUserType,
+                        decoration: InputDecoration(
+                          labelText: 'Register as',
+                          labelStyle: AppTypography.bodyMedium.copyWith(
+                            color: AppColors.textPrimary,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                            borderSide: const BorderSide(
+                              color: AppColors.borderLight,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                            borderSide: const BorderSide(
+                              color: AppColors.primaryMagenta,
+                            ),
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16.w,
+                            vertical: 14.h,
+                          ),
+                        ),
+                        items: const [
+                          DropdownMenuItem(value: 'User', child: Text('User')),
+                          DropdownMenuItem(
+                              value: 'Doctor', child: Text('Doctor')),
+                          DropdownMenuItem(
+                              value: 'Charity', child: Text('Charity')),
+                          DropdownMenuItem(
+                              value: 'Retailer', child: Text('Retailer')),
+                          DropdownMenuItem(
+                            value: 'Insurance Agent',
+                            child: Text('Insurance Agent'),
+                          ),
+                        ],
+                        onChanged: (value) {
+                          if (value == null) return;
+                          setState(() => _selectedUserType = value);
                         },
                       ),
                       SizedBox(height: 10.h),

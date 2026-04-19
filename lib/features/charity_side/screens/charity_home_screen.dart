@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:holt_dog/features/charity_side/screens/marketplace_screen.dart';
-import 'package:holt_dog/features/doctor_side/screens/results_screen.dart';
+import 'package:holt_dog/features/insurance_side/screens/insurance_results_screen.dart';
 import 'package:holt_dog/features/donation/screens/donation_screen.dart';
 import 'package:holt_dog/features/user_side/user_home/screens/custom_drawer.dart';
 import '../widgets/charity_quick_actions_widgets.dart';
@@ -24,7 +24,7 @@ class _HomeScreenState extends State<CharityHomeScreen> {
   late final List<Widget> _screens = [
     const DonationScreen(),
     const _HomeBody(),
-    const ResultsScreen(),
+    const InsuranceResultsScreen(),
     MarketplaceScreen(
       onCartItemCountChanged: (count) =>
           setState(() => _marketCartCount = count),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:holt_dog/features/doctor_side/screens/results_screen.dart';
+import 'package:holt_dog/features/charity_side/screens/results_screen.dart';
 import 'package:holt_dog/features/donation/screens/donation_screen.dart';
 import 'package:holt_dog/features/user_side/user_home/screens/custom_drawer.dart';
 import '../widgets/doctor_quick_actions_widgets.dart';

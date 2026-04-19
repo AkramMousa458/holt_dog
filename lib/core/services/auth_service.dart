@@ -6,8 +6,12 @@ class AuthService {
   // Return null or dummy values for now to prevent crashes
   Stream<User?> get user => const Stream.empty();
 
-  // Sign up
-  Future<UserCredential?> signUp(String email, String password) async {
+  // Sign up ([role] stored with user profile when backend is wired)
+  Future<UserCredential?> signUp(
+    String email,
+    String password, {
+    String role = 'user',
+  }) async {
     // try {
     //   return await _auth.createUserWithEmailAndPassword(email: email, password: password);
     // } catch (e) {
