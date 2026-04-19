@@ -65,9 +65,7 @@ class _ScanScreenState extends State<ScanScreen> {
       _isLoading = false;
       if (response.isSuccess && response.data?['success'] == true) {
         final Map<String, dynamic> data = response.data!;
-        _result = 'المرض المتوقع: ${data['predicted_disease']}\n'
-            'المزاج: ${data['predicted_mood']}\n'
-            'الدقة: ${data['disease_confidence']}%';
+        _result = _formatApiResult(data);
       } else {
         log('API error: ${response.errorMessage}');
         _result = response.errorMessage ??
@@ -77,6 +75,30 @@ class _ScanScreenState extends State<ScanScreen> {
     });
   }
 
+  String _formatApiResult(Map<String, dynamic> data) {
+    // final Map<String, dynamic> allProbabilities =
+    //     (data['all_disease_probabilities'] as Map<String, dynamic>?) ?? {};
+
+    // final String probabilitiesText = allProbabilities.entries
+    //     .map((entry) => '- ${entry.key}: ${_formatPercent(entry.value)}%')
+    //     .join('\n');
+
+    return
+        // 'Success: ${data['success']}\n'
+        // 'Is Dog: ${data['is_dog']}\n'
+        'Predicted Disease: ${data['predicted_disease']}\n'
+            'Disease Confidence: ${_formatPercent(data['disease_confidence'])}%\n'
+            'Predicted Mood: ${data['predicted_mood']}\n'
+            'Mood Confidence: ${_formatPercent(data['mood_confidence'])}%\n';
+    // 'All Disease Probabilities:\n$probabilitiesText';
+  }
+
+  String _formatPercent(dynamic value) {
+    final numValue =
+        value is num ? value : num.tryParse(value?.toString() ?? '') ?? 0;
+    return numValue.toStringAsFixed(2);
+  }
+
   Future<_ApiResponse> _sendImage(File image) async {
     try {
       final FormData formData = FormData.fromMap({
@@ -84,9 +106,11 @@ class _ScanScreenState extends State<ScanScreen> {
       });
 
       final Response<dynamic> response = await _dio.post<dynamic>(
-        '',
+        'https://yh-777-dog-ai-api.hf.space/predict',
         data: formData,
       );
+
+      // log('API response: ${response.data}');
 
       if (response.statusCode == 200 && response.data is Map<String, dynamic>) {
         return _ApiResponse.success(response.data as Map<String, dynamic>);
