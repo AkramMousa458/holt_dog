@@ -13,7 +13,8 @@ class DonationOption {
 
 class DonationScreen extends StatelessWidget {
   static const String routeName = '/donation';
-  const DonationScreen({super.key});
+  final bool isBackButtonVisible;
+  const DonationScreen({super.key, this.isBackButtonVisible = false});
 
   // Sample donation options
   List<DonationOption> get donationOptions => [
@@ -136,7 +137,7 @@ class DonationScreen extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
+        isBackButtonVisible ? Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 40),
           child: IconButton(
             onPressed: () => context.pop(),
@@ -146,7 +147,7 @@ class DonationScreen extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-        ),
+        ) : const SizedBox.shrink(),
       ],
     );
   }

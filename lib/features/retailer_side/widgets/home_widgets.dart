@@ -328,7 +328,7 @@ class QuoteBanner extends StatelessWidget {
           SizedBox(height: 24.h),
           InkWell(
             onTap: () {
-              context.push(DonationScreen.routeName);
+              context.push(DonationScreen.routeName, extra: true);
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 12.h),

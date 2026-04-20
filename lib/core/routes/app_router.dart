@@ -79,7 +79,10 @@ class AppRouter {
       GoRoute(
         path: DonationScreen.routeName,
         name: 'donation',
-        builder: (context, state) => const DonationScreen(),
+        builder: (context, state) {
+          final bool isBackButtonVisible = state.extra as bool? ?? false;
+          return DonationScreen(isBackButtonVisible: isBackButtonVisible);
+        },
       ),
       GoRoute(
         path: MyReportScreen.routeName,

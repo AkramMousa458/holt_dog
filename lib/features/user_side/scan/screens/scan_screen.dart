@@ -32,7 +32,8 @@ class _ScanScreenState extends State<ScanScreen> {
   final ImagePicker _imagePicker = ImagePicker();
   File? _image;
   bool _isLoading = false;
-  String _result = 'اختار صورة الكلب لبدء الفحص';
+  String _statusMessage = 'Select a dog image to start the scan';
+  Map<String, dynamic>? _resultData;
 
   Future<void> _pickImage() async {
     final XFile? pickedFile = await _imagePicker.pickImage(
@@ -43,7 +44,8 @@ class _ScanScreenState extends State<ScanScreen> {
 
     setState(() {
       _image = File(pickedFile.path);
-      _result = 'تم اختيار الصورة، اضغط على تحليل';
+      _statusMessage = 'Image selected, press analyze';
+      _resultData = null;
     });
   }
 
@@ -53,7 +55,8 @@ class _ScanScreenState extends State<ScanScreen> {
 
     setState(() {
       _isLoading = true;
-      _result = 'جاري التحليل... انتظر قليلاً';
+      _statusMessage = 'Analyzing... please wait a moment';
+      _resultData = null;
     });
 
     final _ApiResponse response = await _sendImage(selectedImage);
@@ -64,39 +67,285 @@ class _ScanScreenState extends State<ScanScreen> {
     setState(() {
       _isLoading = false;
       if (response.isSuccess && response.data?['success'] == true) {
-        final Map<String, dynamic> data = response.data!;
-        _result = _formatApiResult(data);
+        _resultData = response.data!;
+        _statusMessage = 'Analysis completed';
       } else {
         log('API error: ${response.errorMessage}');
-        _result = response.errorMessage ??
+        _statusMessage = response.errorMessage ??
             response.data?['message']?.toString() ??
-            'حدث خطأ غير متوقع';
+            'An unexpected error occurred';
       }
     });
-  }
-
-  String _formatApiResult(Map<String, dynamic> data) {
-    // final Map<String, dynamic> allProbabilities =
-    //     (data['all_disease_probabilities'] as Map<String, dynamic>?) ?? {};
-
-    // final String probabilitiesText = allProbabilities.entries
-    //     .map((entry) => '- ${entry.key}: ${_formatPercent(entry.value)}%')
-    //     .join('\n');
-
-    return
-        // 'Success: ${data['success']}\n'
-        // 'Is Dog: ${data['is_dog']}\n'
-        'Predicted Disease: ${data['predicted_disease']}\n'
-            'Disease Confidence: ${_formatPercent(data['disease_confidence'])}%\n'
-            'Predicted Mood: ${data['predicted_mood']}\n'
-            'Mood Confidence: ${_formatPercent(data['mood_confidence'])}%\n';
-    // 'All Disease Probabilities:\n$probabilitiesText';
   }
 
   String _formatPercent(dynamic value) {
     final numValue =
         value is num ? value : num.tryParse(value?.toString() ?? '') ?? 0;
     return numValue.toStringAsFixed(2);
+  }
+
+  double _percentToProgress(dynamic value) {
+    final numValue =
+        value is num ? value.toDouble() : double.tryParse('$value') ?? 0;
+    return (numValue.clamp(0, 100)) / 100;
+  }
+
+  String _formatDiseaseName(String value) {
+    return value.replaceAll('_', ' ');
+  }
+
+  Widget _buildResultSection() {
+    if (_isLoading) {
+      return Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(16.w),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF4EEFF),
+          borderRadius: BorderRadius.circular(14.r),
+          border: Border.all(color: const Color(0xFFDCCAFE)),
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 18.w,
+              height: 18.w,
+              child: const CircularProgressIndicator(strokeWidth: 2.2),
+            ),
+            SizedBox(width: 12.w),
+            Expanded(
+              child: Text(
+                _statusMessage,
+                style: AppTypography.bodyMedium.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (_resultData == null) {
+      return Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(16.w),
+        decoration: BoxDecoration(
+          color: AppColors.backgroundGray.withValues(alpha: 0.45),
+          borderRadius: BorderRadius.circular(14.r),
+        ),
+        child: Text(
+          _statusMessage,
+          textAlign: TextAlign.center,
+          style: AppTypography.bodyMedium.copyWith(
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      );
+    }
+
+    final Map<String, dynamic> data = _resultData!;
+    final Map<String, dynamic> allProbabilities =
+        (data['all_disease_probabilities'] as Map<String, dynamic>?) ?? {};
+    final String predictedDisease =
+        _formatDiseaseName('${data['predicted_disease'] ?? '-'}');
+    final String predictedMood = '${data['predicted_mood'] ?? '-'}';
+    final bool isDog = data['is_dog'] == true;
+
+    final entries = allProbabilities.entries.toList()
+      ..sort((a, b) {
+        final aVal =
+            a.value is num ? (a.value as num).toDouble() : double.tryParse('${a.value}') ?? 0;
+        final bVal =
+            b.value is num ? (b.value as num).toDouble() : double.tryParse('${b.value}') ?? 0;
+        return bVal.compareTo(aVal);
+      });
+
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFFFFFFFF), Color(0xFFF7F4FF)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: const Color(0xFFE8DEFA)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.06),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Analysis Result',
+            style: AppTypography.bodyLarge.copyWith(
+              fontWeight: FontWeight.w700,
+              color: AppColors.primaryPurple,
+            ),
+          ),
+          SizedBox(height: 12.h),
+          Wrap(
+            spacing: 8.w,
+            runSpacing: 8.h,
+            children: [
+              _buildInfoChip(
+                label: 'Dog check',
+                value: isDog ? 'Dog detected' : 'Not a dog',
+                color: isDog ? Colors.green : Colors.red,
+              ),
+              _buildInfoChip(
+                label: 'Disease',
+                value: predictedDisease,
+                color: AppColors.primaryPurple,
+              ),
+              _buildInfoChip(
+                label: 'Mood',
+                value: predictedMood,
+                color: Colors.orange,
+              ),
+            ],
+          ),
+          SizedBox(height: 12.h),
+          _buildMetricRow(
+            title: 'Disease confidence',
+            value: _formatPercent(data['disease_confidence']),
+            color: AppColors.primaryPurple,
+          ),
+          SizedBox(height: 8.h),
+          _buildMetricRow(
+            title: 'Mood confidence',
+            value: _formatPercent(data['mood_confidence']),
+            color: Colors.orange,
+          ),
+          SizedBox(height: 14.h),
+          Text(
+            'All disease probabilities',
+            style: AppTypography.bodyMedium.copyWith(
+              fontWeight: FontWeight.w700,
+              color: AppColors.textPrimary,
+            ),
+          ),
+          SizedBox(height: 8.h),
+          ...entries.map(
+            (entry) => _buildProbabilityRow(
+              label: _formatDiseaseName(entry.key),
+              value: entry.value,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoChip({
+    required String label,
+    required String value,
+    required Color color,
+  }) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(10.r),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            label,
+            style: AppTypography.bodySmall.copyWith(
+              color: AppColors.textSecondary,
+            ),
+          ),
+          Text(
+            value,
+            style: AppTypography.bodyMedium.copyWith(
+              fontWeight: FontWeight.w700,
+              color: color,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMetricRow({
+    required String title,
+    required String value,
+    required Color color,
+  }) {
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            title,
+            style: AppTypography.bodyMedium.copyWith(
+              color: AppColors.textSecondary,
+            ),
+          ),
+        ),
+        Text(
+          '$value%',
+          style: AppTypography.bodyMedium.copyWith(
+            fontWeight: FontWeight.w700,
+            color: color,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildProbabilityRow({
+    required String label,
+    required dynamic value,
+  }) {
+    final String percentText = _formatPercent(value);
+    final double progress = _percentToProgress(value);
+
+    return Padding(
+      padding: EdgeInsets.only(top: 8.h),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  label,
+                  style: AppTypography.bodySmall.copyWith(
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+              ),
+              Text(
+                '$percentText%',
+                style: AppTypography.bodySmall.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.primaryPurple,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 4.h),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8.r),
+            child: LinearProgressIndicator(
+              minHeight: 7.h,
+              value: progress,
+              backgroundColor: const Color(0xFFEDE7FA),
+              valueColor:
+                  const AlwaysStoppedAnimation<Color>(AppColors.primaryPurple),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<_ApiResponse> _sendImage(File image) async {
@@ -106,7 +355,7 @@ class _ScanScreenState extends State<ScanScreen> {
       });
 
       final Response<dynamic> response = await _dio.post<dynamic>(
-        'https://yh-777-dog-ai-api.hf.space/predict',
+        '',
         data: formData,
       );
 
@@ -117,12 +366,12 @@ class _ScanScreenState extends State<ScanScreen> {
       }
 
       return _ApiResponse.failure(
-        'خطأ من السيرفر: ${response.statusCode ?? 'Unknown'}',
+        'Server error: ${response.statusCode ?? 'Unknown'}',
       );
     } on DioException catch (error) {
       return _ApiResponse.failure(_mapDioError(error));
     } catch (error) {
-      return _ApiResponse.failure('فشل الاتصال بالسيرفر: $error');
+      return _ApiResponse.failure('Failed to connect to the server: $error');
     }
   }
 
@@ -131,13 +380,13 @@ class _ScanScreenState extends State<ScanScreen> {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.receiveTimeout:
       case DioExceptionType.sendTimeout:
-        return 'انتهت مهلة الاتصال، حاول مرة أخرى';
+        return 'Connection timeout, try again';
       case DioExceptionType.connectionError:
-        return 'لا يوجد اتصال بالسيرفر، تأكد من الإنترنت';
+        return 'No connection to the server, check your internet connection';
       case DioExceptionType.badResponse:
-        return 'السيرفر رجع خطأ: ${error.response?.statusCode ?? 'Unknown'}';
+        return 'Server returned an error: ${error.response?.statusCode ?? 'Unknown'}';
       default:
-        return 'حدث خطأ غير متوقع أثناء الاتصال';
+        return 'An unexpected error occurred while connecting';
     }
   }
 
@@ -205,7 +454,7 @@ class _ScanScreenState extends State<ScanScreen> {
                     child: ElevatedButton.icon(
                       onPressed: _pickImage,
                       icon: const Icon(Icons.image_outlined),
-                      label: const Text('اختار صورة من الجاليري'),
+                      label: const Text('Upload Image from gallery'),
                     ),
                   ),
                   SizedBox(height: 12.h),
@@ -225,7 +474,7 @@ class _ScanScreenState extends State<ScanScreen> {
                             )
                           : const Icon(Icons.analytics_outlined),
                       label: Text(
-                        _isLoading ? 'جاري التحليل...' : 'ابدأ التحليل الآن',
+                        _isLoading ? 'Analyzing...' : 'Start Analysis Now',
                       ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryPurple,
@@ -236,21 +485,7 @@ class _ScanScreenState extends State<ScanScreen> {
                     ),
                   ),
                   SizedBox(height: 24.h),
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(16.w),
-                    decoration: BoxDecoration(
-                      color: AppColors.backgroundGray.withValues(alpha: 0.45),
-                      borderRadius: BorderRadius.circular(14.r),
-                    ),
-                    child: Text(
-                      _result,
-                      textAlign: TextAlign.center,
-                      style: AppTypography.bodyMedium.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
+                  _buildResultSection(),
                   SizedBox(height: 140.h),
                 ],
               ),

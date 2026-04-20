@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:holt_dog/features/insurance_side/screens/insurance_results_screen.dart';
-import 'package:holt_dog/features/user_side/user_home/screens/custom_drawer.dart';
 import '../widgets/insurance_nav_bar.dart';
 
 class InsuranceHomeScreen extends StatefulWidget {
